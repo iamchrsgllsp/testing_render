@@ -11,3 +11,8 @@ def hello_world():
 @app.route('/test')
 def test():
   return "test"
+
+
+@app.route('/func')
+def func():
+  return "func"
