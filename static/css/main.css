@@ -1,3 +1,13 @@
 .header{
   background-color:blue;
+  height:20vh;
+  width:100%;
+}
+
+.content{
+  background-color:red;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  height:60vh;
+  width:100%;
 }
