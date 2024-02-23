@@ -3,13 +3,22 @@
 <head>
     <title></title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+  <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="header">
   Hi There
   </div>
   <div class="content">
-    Adding some extra content in</div>  
+    Adding some extra content in</div> 
+  <div hx-target="this" hx-swap="outerHTML">
+      <div><label>First Name</label>: Joe</div>
+      <div><label>Last Name</label>: Blow</div>
+      <div><label>Email</label>: joe@blow.com</div>
+      <button hx-get="/contact/1/edit" class="btn btn-primary">
+      Click To Edit
+      </button>
+  </div>
   
 </body>
 </html>
