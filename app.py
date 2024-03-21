@@ -1,39 +1,54 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
+import os
+import openai
+import asyncio
+from testsongs import songs
 
+chatgpt = os.environ['CHATTOKEN']
 app = Flask(__name__, static_folder="static")
+
+openai.api_key = chatgpt
+
+
+def resp(prompt):
+  engine = openai.chat.completions.create(
+      model="gpt-3.5-turbo",
+      messages=[
+          {
+              "role": "user",
+              "content": prompt,
+          },
+      ],
+  )
+  print(engine)
+  return engine.choices[0].message.content
 
 
 @app.route('/')
-def hello_world():
-  data = "well hi"
-  return render_template("home.html", data=data)
+def home():
+  return render_template("home.html", songs=songs)
 
 
-@app.route('/test')
-def test():
-  return """<form hx-put="/contact/1" hx-target="this" hx-swap="outerHTML">
-  <div>
-    <label>First Name</label>
-    <input type="text" name="firstName" value="Joe">
-  </div>
-  <div class="form-group">
-    <label>Last Name</label>
-    <input type="text" name="lastName" value="Blow">
-  </div>
-  <div class="form-group">
-    <label>Email Address</label>
-    <input type="email" name="email" value="joe@blow.com">
-  </div>
-  <button class="btn">Submit</button>
-  <button class="btn" hx-get="/contact/1">Cancel</button>
-</form>
-  """
+@app.route('/getsongs', methods=["POST", "GET"])
+def getsongs():
+  if request.method == "POST":
+    print(request.json)
+    prompt = f"from this list of ranked songs, recommend 9 other songs and 1 opposing style song: {request.json}. also recommend 1 movie, 1 game and 1 book that would have similar vibe to the songs"
+    data = resp(prompt)
+    print(data)
+    data = str(data)
+    data = data.replace("\n", ", <br>").replace("\\", "")
+
+    return {"data": data}  # You can return a string as an example response
+  else:
+    return redirect('/')
 
 
-@app.route('/func')
-def func():
-  return "func"
+@app.route('/foundsongs')
+def index():
+  #data = resp()
+
+  return render_template("songs.html", data=data)
 
 
-#comment out below before deploying on render
-#app.run(host="0.0.0.0", port=8080, debug=True)
+#app.run(host='0.0.0.0', port=80, debug=True)

@@ -1,0 +1,74 @@
+<style> 
+body{ 
+  overflow:hidden;
+  font-family: "Inter", sans-serif;
+}
+
+.header{
+  background-color:violet;
+  height:10vh;
+  width:100vw;
+  padding:10px;
+}
+
+.header img{
+  height:8vh;
+}
+
+.cardarea{
+  display:grid;
+  width:100vw;
+  height:90vh;
+  grid-template-columns:25% 75%;
+  background-color:green;
+}
+
+.card{
+  display:grid;
+  grid-template-rows:40% 60%;
+   width: 100px;
+   height: 150px;
+   background-color: lightblue;
+   margin: 10px;
+   cursor: grab;
+   user-select: none;
+   }
+.card img{
+  width:75px;
+}
+   .drop-area {
+   width: 360px;
+   height: 180px;
+   border: 2px dashed gray;
+     background-color:ghostwhite;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   }
+
+
+
+.cards{
+  background-color:ghostwhite;
+  width:400px;
+  display:grid;
+  grid-template-columns:auto auto;
+}
+
+.gamearea{
+  background-color:orangered;
+
+  display:grid;
+  grid-template-columns:25% 25% 25% 25%
+}
+.carddetails{
+
+}
+
+button{
+  background-color:violet;
+  width: 360px;
+   height: 180px;
+}
+
+</style>

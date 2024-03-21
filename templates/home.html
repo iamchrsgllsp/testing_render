@@ -1,41 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>{{data}}</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-</head>
-<body>
-  <div class="header">
-  Hi There
-  </div>
-  <div class="content">
-  <div hx-target="this" hx-swap="outerHTML">
-      <div><label>First Name</label>: Joe</div>
-      <div><label>Last Name</label>: Blow</div>
-      <div><label>Email</label>: joe@blow.com</div>
-      <button class="btn btn-primary">
-      Click To Edit
-      </button>
-  </div><div hx-target="this" hx-swap="outerHTML">
-      <div><label>First Name</label>: Joe</div>
-      <div><label>Last Name</label>: Blow</div>
-      <div><label>Email</label>: joe@blow.com</div>
-      <button class="btn btn-primary">
-      Click To Edit
-      </button>
-  </div><div hx-target="this" hx-swap="outerHTML">
-      <div><label>First Name</label>: Joe</div>
-      <div><label>Last Name</label>: Blow</div>
-      <div><label>Email</label>: joe@blow.com</div>
-      <button hx-get="/test" class="btn btn-primary">
-      Click To Edit
-      </button>
-  </div>
-    </div> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='javascript/hammer.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
   
+    <title>Spotify Ranker</title>
+
+</head>
+
+<body>
+    <div class="header">
+        <img src="https://th.bing.com/th/id/R.e6f94187bcb7e9373f1a0bbb2c67a101?rik=RP3QVieOAOL54g&riu=http%3a%2f%2fclipart-library.com%2fimages%2fAibKGkpbT.png&ehk=D6bm9s5pVkT2eKcVpyzGO72TJDirnXZ6fSP7M6LPM1c%3d&risl=&pid=ImgRaw&r=0">
+    </div>
+    <div class="cardarea">
+        <div class="cards" id="cards">
+            {% for song in songs %}
+          <div class="card" id="card1">
+              <span class="cardimg">
+                  <img src="{{song['image']}}">
+              </span>
+              <span class="carddetails">
+                  <p>{{song['song']}}-{{song['artist']}}</p>
+                  
+                  <p>Plays:100k</p>
+              </span>
+          </div>
+          {% endfor %}  
+        </div>
+        <div class="gamearea">
+            <div class="drop-area" id="dropArea1" ondrop='console.log("hello")' ondragover="allowDrop(event)">1</div>
+            <div class="drop-area" id="dropArea2" ondrop="drop(event)" ondragover="allowDrop(event)">2</div>
+            <div class="drop-area" id="dropArea3" ondrop="drop(event)" ondragover="allowDrop(event)">3</div>
+            <div class="drop-area" id="dropArea4" ondrop="drop(event)" ondragover="allowDrop(event)">4</div>
+            <div class="drop-area" id="dropArea5" ondrop="drop(event)" ondragover="allowDrop(event)">5</div>
+          <div class="drop-area" id="dropArea6" ondrop="drop(event)" ondragover="allowDrop(event)">6</div>
+          <div class="drop-area" id="dropArea7" ondrop="drop(event)" ondragover="allowDrop(event)">7</div>
+          <div class="drop-area" id="dropArea8" ondrop="drop(event)" ondragover="allowDrop(event)">8</div>
+          <div class="drop-area" id="dropArea9" ondrop="drop(event)" ondragover="allowDrop(event)">9</div>
+          <div class="drop-area" id="dropArea10" ondrop="drop(event)" ondragover="allowDrop(event)">10</div>
+          <div class="btn">
+            <button onclick="sendList()">Click</button>
+          </div>
+        </div>
+      
+    </div>
+
+    <script>
+        // Initialize Hammer.js 
+        const cards = document.querySelectorAll('.card');
+        const dropAreas = document.querySelectorAll('.drop-area');
+        cards.forEach(card => {
+            const hammerCard = new Hammer(card);
+            hammerCard.on('pan', (event) => {
+                card.style.position = 'absolute';
+                card.style.left = event.center.x - card.offsetWidth / 2 + 'px';
+                card.style.top = event.center.y - card.offsetHeight / 2 + 'px';
+            });
+            hammerCard.on('panend', () => { // Check if the card is dropped in a valid drop area 
+                dropAreas.forEach(dropArea => {
+                    const rect = dropArea.getBoundingClientRect();
+                    const cardRect = card.getBoundingClientRect();
+                    if (cardRect.left >= rect.left && cardRect.right <= rect.right && cardRect.top >= rect.top && cardRect.bottom <= rect.bottom) {
+                        dropArea.appendChild(card);
+                        card.style.position = 'static';
+                        handleCardDrop(card,dropArea);
+                    }
+                });
+            });
+        }); // Prevent default behavior for drag and drop 
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            console.log(event.target.id);
+        }
+
+      function handleCardDrop(card,dropArea){
+        let carddetail = card.getElementsByTagName("p")[0].innerHTML
+        let dropdetail = dropArea.id
+        console.log(carddetail + ' dropped on ' + dropdetail)
+      }
+
+      function sendList(){
+        let cardlist = []
+        let carddetails = document.getElementsByClassName("card")
+        document.getElementById('cards').innerHTML = '<img src="https://c.tenor.com/0iK9a1WkT40AAAAC/loading-white.gif" style="width:400px;">'
+        for(let i = 0; i < carddetails.length; i++){
+          let carddetail = carddetails[i].getElementsByTagName("p")[0].innerHTML + '-' + carddetails[i].getElementsByTagName("p")[1].innerHTML
+          let dropdetail = carddetails[i].parentElement.id
+          cardlist.push(carddetail)
+        }
+        console.log(cardlist)
+        fetch("/getsongs", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+
+          //make sure to serialize your JSON body
+          body: JSON.stringify({
+            1: cardlist[0],
+            2: cardlist[1],
+            3: cardlist[2],
+            4: cardlist[3],
+            5: cardlist[4],
+            6: cardlist[5],
+            7: cardlist[6],
+            8: cardlist[7],
+            9: cardlist[8],
+            10: cardlist[9]
+          })
+        })
+      .then((response) => response.json())
+      .then((json) => document.getElementById('cards').innerHTML = JSON.stringify(json['data']));
+      }
+    </script>
 </body>
+
 </html>
