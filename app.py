@@ -51,4 +51,4 @@ def index():
   return render_template("songs.html", data=data)
 
 
-app.run(host='0.0.0.0', port=80, debug=True)
+app.run(host='0.0.0.0', port=80)
