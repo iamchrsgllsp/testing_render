@@ -69,7 +69,7 @@ def verify():
   # Don't reuse a SpotifyOAuth object because they store token info and you could leak user tokens if you reuse a SpotifyOAuth object
   sp_oauth = spotipy.oauth2.SpotifyOAuth(client_id=CLI_ID,
                                          client_secret=CLI_SEC,
-                                         redirect_uri=REDIRECT_URI2,
+                                         redirect_uri=REDIRECT_URI,
                                          scope=SCOPE)
   auth_url = sp_oauth.get_authorize_url()
   print(auth_url)
@@ -81,7 +81,7 @@ def api_callback():
   # Don't reuse a SpotifyOAuth object because they store token info and you could leak user tokens if you reuse a SpotifyOAuth object
   sp_oauth = spotipy.oauth2.SpotifyOAuth(client_id=CLI_ID,
                                          client_secret=CLI_SEC,
-                                         redirect_uri=REDIRECT_URI2,
+                                         redirect_uri=REDIRECT_URI,
                                          scope=SCOPE)
   session.clear()
   code = request.args.get('code')
