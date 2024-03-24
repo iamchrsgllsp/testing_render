@@ -95,12 +95,21 @@ def api_callback():
 
 @app.route('/')
 def home():
-  if session["token_info"]:
+  if session:
     songs = most()
     print(type(songs))
     return render_template("home.html", songs=songs)
   else:
-    return redirect("/verify")
+    return render_template("index.html")
+
+
+@app.route("/logout")
+def logout():
+  if session:
+    session.clear()
+    return redirect("/")
+  else:
+    return redirect("/")
 
 
 @app.route('/getsongs', methods=["POST", "GET"])
@@ -129,7 +138,7 @@ def most():
   tracks = {}
   for idx, item in enumerate(resulter['items']):
     track = item['name']
-    print(track)
+    print(item)
     image = item['album']['images'][0].get('url')
     print(image)
     artist = item['artists'][0]['name']
