@@ -21,6 +21,7 @@
     </div>
     <div class="cardarea">
         <div class="cards" id="cards">
+          {% if session['token_info'] %}
             {% for song in songs.items() %}
           <div class="card" id="card1">
               <span class="cardimg">
@@ -33,6 +34,9 @@
               </span>
           </div>
           {% endfor %}  
+          {% else %}
+          <p>Please login to Spotify</p>
+          {% endif %}
         </div>
         <div class="gamearea">
             <div class="drop-area" id="dropArea1" ondrop='console.log("hello")' ondragover="allowDrop(event)">1</div>
