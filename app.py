@@ -95,9 +95,12 @@ def api_callback():
 
 @app.route('/')
 def home():
-  songs = most()
-  print(type(songs))
-  return render_template("home.html", songs=songs)
+  if session["token_info"]:
+    songs = most()
+    print(type(songs))
+    return render_template("home.html", songs=songs)
+  else:
+    return redirect("/verify")
 
 
 @app.route('/getsongs', methods=["POST", "GET"])
