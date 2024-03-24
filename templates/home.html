@@ -13,17 +13,21 @@
 
 <body>
     <div class="header">
+        {% if session['token_info'] %}
         <img src="https://th.bing.com/th/id/R.e6f94187bcb7e9373f1a0bbb2c67a101?rik=RP3QVieOAOL54g&riu=http%3a%2f%2fclipart-library.com%2fimages%2fAibKGkpbT.png&ehk=D6bm9s5pVkT2eKcVpyzGO72TJDirnXZ6fSP7M6LPM1c%3d&risl=&pid=ImgRaw&r=0">
+      {% else %}
+      <button class="btn" onclick="window.location.href='/verify'">Sign In</button>
+      {% endif %}
     </div>
     <div class="cardarea">
         <div class="cards" id="cards">
-            {% for song in songs %}
+            {% for song in songs.items() %}
           <div class="card" id="card1">
               <span class="cardimg">
-                  <img src="{{song['image']}}">
+                  <img src="{{song[0]}}">
               </span>
               <span class="carddetails">
-                  <p>{{song['song']}}-{{song['artist']}}</p>
+                  <p>{{song[1]}}</p>
                   
                   <p>Plays:100k</p>
               </span>
