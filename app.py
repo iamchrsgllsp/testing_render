@@ -13,8 +13,8 @@ openai.api_key = chatgpt
 CLI_ID = sid
 CLI_SEC = sid_sec
 # Make sure you add this to Redirect URIs in the setting of the application dashboard
-REDIRECT_URI2 = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
-REDIRECT_URI = "https://testing-render-8isd.onrender.com/api_callback"
+REDIRECT_URI = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
+REDIRECT_URI2 = "https://testing-render-8isd.onrender.com/api_callback"
 
 SCOPE = 'user-read-recently-played, user-top-read'
 
@@ -97,10 +97,31 @@ def api_callback():
 def home():
   if session:
     songs = most()
-    print(type(songs))
     return render_template("home.html", songs=songs)
   else:
     return render_template("index.html")
+
+
+def searcher(tracks):
+  songs =[]
+  print(tracks)
+  found = []
+  for i in tracks.split("\n\n")[0].split("\n")[1:]:
+    songs.append(i.split(". ")[1])
+  #sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
+  #search = sp.search(q=songs[0], type="track",limit=1)
+  for song in songs:
+    find = spsearch(song)
+    found.append({song:find})
+  data = tracks.split("\n\n")[1:]
+  print(data)
+  return {"songs":str(found),"data":data}
+  
+def spsearch(track):
+  sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
+  search = sp.search(q=track, type="track",limit=1)
+  search = search['tracks']['items'][0]['album']['artists'][0]['external_urls']['spotify']
+  return search
 
 
 @app.route("/logout")
@@ -120,7 +141,7 @@ def getsongs():
     data = resp(prompt)
     print(data)
     data = str(data)
-    data = data.replace("\n", ", <br>").replace("\\", "")
+    data = searcher(data)
 
     return {"data": data}  # You can return a string as an example response
   else:
@@ -157,4 +178,4 @@ def index():
   return render_template("songs.html", data=data)
 
 
-#app.run(host='0.0.0.0', port=80)
+app.run(host='0.0.0.0', port=80)

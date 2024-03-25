@@ -127,7 +127,9 @@
           })
         })
       .then((response) => response.json())
-      .then((json) => document.getElementById('cards').innerHTML = JSON.stringify(json['data']));
+      .then((json) => document.getElementById('cards').innerHTML = json['data']['songs'] + "<br><br>" + json['data']['data']);
+        
+
       }
     </script>
 </body>
