@@ -99,11 +99,12 @@
         let carddetails = document.getElementsByClassName("card")
         document.getElementById('cards').innerHTML = '<img src="https://c.tenor.com/0iK9a1WkT40AAAAC/loading-white.gif" style="width:400px;">'
         for(let i = 0; i < carddetails.length; i++){
-          let carddetail = carddetails[i].getElementsByTagName("p")[0].innerHTML + '-' + carddetails[i].getElementsByTagName("p")[1].innerHTML
+          let carddetail = carddetails[i].getElementsByTagName("p")[0].innerHTML
           let dropdetail = carddetails[i].parentElement.id
           cardlist.push(carddetail)
         }
         console.log(cardlist)
+        console.log(cardetail)
         fetch("/getsongs", {
           method: "POST",
           headers: {
