@@ -13,8 +13,8 @@ openai.api_key = chatgpt
 CLI_ID = sid
 CLI_SEC = sid_sec
 # Make sure you add this to Redirect URIs in the setting of the application dashboard
-REDIRECT_URI = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
-REDIRECT_URI2 = "https://testing-render-8isd.onrender.com/api_callback"
+REDIRECT_URI2 = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
+REDIRECT_URI = "https://testing-render-8isd.onrender.com/api_callback"
 
 SCOPE = 'user-read-recently-played, user-top-read'
 
@@ -183,4 +183,4 @@ def index():
   return render_template("songs.html", data=data)
 
 
-app.run(host='0.0.0.0', port=80)
+#app.run(host='0.0.0.0', port=80)
