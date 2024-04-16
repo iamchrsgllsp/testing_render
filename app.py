@@ -110,23 +110,37 @@ def searcher(tracks):
   #sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
   #search = sp.search(q=songs[0], type="track",limit=1)
   for song in songs:
-    find, img = spsearch(song)
-    found.append({"image":img,"track":song,"link": find})
+    find, img, pr = spsearch(song)
+    found.append({"image": img, "track": song, "link": find, "preview": pr})
   data = tracks.split("\n\n")[1:]
   print(len(songs))
   print(len(found))
-  return {"songs": {"song1":found[0],"song2":found[1],"song3":found[2],"song4":found[3],"song5":found[4],"song6":found[5],"song7":found[6],"song8":found[7],"song9":found[8]}, "data": data}
+  return {
+      "songs": {
+          "song1": found[0],
+          "song2": found[1],
+          "song3": found[2],
+          "song4": found[3],
+          "song5": found[4],
+          "song6": found[5],
+          "song7": found[6],
+          "song8": found[7],
+          "song9": found[8]
+      },
+      "data": data
+  }
 
 
 def spsearch(track):
   sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
   search = sp.search(q=track, type="track", limit=1)
-  
+
   searcher = search['tracks']['items'][0]['album']['artists'][0][
       'external_urls']['spotify']
-  
+  pr = search['tracks']['items'][0]['preview_url']
+  print(pr)
   img = search['tracks']['items'][0]['album']['images'][0]['url']
-  return searcher , img
+  return searcher, img, pr
 
 
 @app.route("/logout")

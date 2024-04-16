@@ -5,7 +5,7 @@ body{
 }
 
 .header{
-  background-color:violet;
+  background-color:lightgray;
   height:10vh;
   width:100vw;
   padding:10px;
@@ -16,7 +16,11 @@ body{
 }
 
 .btn{
-  heigh:8vh;
+  heigh:3vh;
+}
+
+.btn2{
+  height:50px;
 }
 
 .cardarea{
@@ -24,9 +28,12 @@ body{
   width:100vw;
   height:90vh;
   grid-template-columns:25% 75%;
-  background-color:green;
+  background-color:ghostwhite;
 }
 
+iframe{
+  height:25px;
+}
 .card{
   display:grid;
   grid-template-rows:40% 60%;
@@ -60,7 +67,7 @@ body{
 }
 
 .gamearea{
-  background-color:orangered;
+  background-color:grey;
 
   display:grid;
   grid-template-columns:25% 25% 25% 25%
@@ -69,8 +76,8 @@ body{
 
 }
 
-button{
-  background-color:violet;
+.clickbtn{
+  background-color:darkgray;
   width: 360px;
    height: 180px;
 }

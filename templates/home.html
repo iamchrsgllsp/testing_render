@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="{{ url_for('static', filename='javascript/hammer.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
   
@@ -15,7 +16,7 @@
     <div class="header">
         {% if session['token_info'] %}
         <img src="https://th.bing.com/th/id/R.e6f94187bcb7e9373f1a0bbb2c67a101?rik=RP3QVieOAOL54g&riu=http%3a%2f%2fclipart-library.com%2fimages%2fAibKGkpbT.png&ehk=D6bm9s5pVkT2eKcVpyzGO72TJDirnXZ6fSP7M6LPM1c%3d&risl=&pid=ImgRaw&r=0">
-      <button class="btn" onclick="window.location.href='/logout'">Logout</button>
+      <button class="btn2" onclick="window.location.href='/logout'">Logout</button>
       {% else %}
       <button class="btn" onclick="window.location.href='/verify'">Sign In</button>
       {% endif %}
@@ -49,8 +50,8 @@
           <div class="drop-area" id="dropArea8" ondrop="drop(event)" ondragover="allowDrop(event)">8</div>
           <div class="drop-area" id="dropArea9" ondrop="drop(event)" ondragover="allowDrop(event)">9</div>
           <div class="drop-area" id="dropArea10" ondrop="drop(event)" ondragover="allowDrop(event)">10</div>
-          <div class="btn">
-            <button onclick="sendList()">Click</button>
+          <div class="clickbtn">
+            <button onclick="sendList()" class="clickbtn">Click</button>
           </div>
         </div>
       
@@ -128,18 +129,24 @@
         })
       .then((response) => response.json())
       .then((json) => document.getElementById('cards').innerHTML =   
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song1']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song1']['track'] + "</p><a href=" + json['data']['songs']['song1']['link'] + ">Link</a></span></div>" + 
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song2']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song2']['track'] + "</p><a href=" + json['data']['songs']['song2']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song3']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song3']['track'] + "</p><a href=" + json['data']['songs']['song3']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song4']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song4']['track'] + "</p><a href=" + json['data']['songs']['song4']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song5']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song5']['track'] + "</p><a href=" + json['data']['songs']['song5']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song6']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song6']['track'] + "</p><a href=" + json['data']['songs']['song6']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song7']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song7']['track'] + "</p><a href=" + json['data']['songs']['song7']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song8']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song8']['track'] + "</p><a href=" + json['data']['songs']['song8']['link'] + ">Link</a></span></div>" +
-        "<div class='card'><span class='cardimg'><img src='" +json['data']['songs']['song9']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song9']['track'] + "</p><a href=" + json['data']['songs']['song9']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song1']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song1']['track'] + "</p><a href=" + json['data']['songs']['song1']['link'] + ">Link</a></span></div>" + 
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song2']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song2']['track'] + "</p><a href=" + json['data']['songs']['song2']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song3']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song3']['track'] + "</p><a href=" + json['data']['songs']['song3']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song4']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song4']['track'] + "</p><a href=" + json['data']['songs']['song4']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song5']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song5']['track'] + "</p><a href=" + json['data']['songs']['song5']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song6']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song6']['track'] + "</p><a href=" + json['data']['songs']['song6']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song7']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song7']['track'] + "</p><a href=" + json['data']['songs']['song7']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner()'><span class='cardimg'><img src='" +json['data']['songs']['song8']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song8']['track'] + "</p><a href=" + json['data']['songs']['song8']['link'] + ">Link</a></span></div>" +
+        "<div class='card' onmouseenter='runner(\""+ json['data']['songs']['song9']['preview'] +"\")'><span class='cardimg'><img src='" +json['data']['songs']['song9']['image'] + "'></span><span class='carddetails'><p>" + json['data']['songs']['song9']['track'] + "</p><a href=" + json['data']['songs']['song9']['link'] + ">Link</a><iframe src="+ json['data']['songs']['song9']['preview'] + " title='description'></iframe></span></div>" +
         "<br><br>" + json['data']['data'] + "</div>");
         
 
+      }
+      function runner(song){
+        if(song != ""){
+          new Audio("'" + song + "'").play()
+        console.log(song)
+        }
       }
     </script>
 </body>
