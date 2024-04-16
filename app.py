@@ -156,7 +156,7 @@ def logout():
 def getsongs():
   if request.method == "POST":
     print(request.json)
-    prompt = f"from this list of ranked songs, recommend 9 other songs and 1 opposing style song: {request.json}. also recommend 1 movie, 1 game and 1 book that would have similar vibe to the songs"
+    prompt = f"from this list of ranked songs with 1 being the highest rank and descending, recommend 9 other songs and 1 opposing style song: {request.json}. also recommend 1 movie, 1 game and 1 book that would have similar vibe to the songs"
     data = resp(prompt)
     print(data)
     data = str(data)
