@@ -13,8 +13,8 @@ openai.api_key = chatgpt
 CLI_ID = sid
 CLI_SEC = sid_sec
 # Make sure you add this to Redirect URIs in the setting of the application dashboard
-REDIRECT_URI2 = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
-REDIRECT_URI = "https://testing-render-8isd.onrender.com/api_callback"
+REDIRECT_URI = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
+REDIRECT_URI2 = "https://testing-render-8isd.onrender.com/api_callback"
 
 SCOPE = 'user-read-recently-played, user-top-read'
 
@@ -96,8 +96,9 @@ def api_callback():
 @app.route('/')
 def home():
   if session:
+    profile_img = get_profile()
     songs = most()
-    return render_template("home.html", songs=songs)
+    return render_template("home.html", songs=songs, image=profile_img)
   else:
     return render_template("index.html")
 
@@ -131,6 +132,12 @@ def searcher(tracks):
   }
 
 
+def get_profile():
+  sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
+  data = sp.current_user()
+  return data['images'][1]['url']
+
+
 def spsearch(track):
   sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
   search = sp.search(q=track, type="track", limit=1)
@@ -138,7 +145,6 @@ def spsearch(track):
   searcher = search['tracks']['items'][0]['album']['artists'][0][
       'external_urls']['spotify']
   pr = search['tracks']['items'][0]['preview_url']
-  print(pr)
   img = search['tracks']['items'][0]['album']['images'][0]['url']
   return searcher, img, pr
 
@@ -178,11 +184,11 @@ def most():
   tracks = {}
   for idx, item in enumerate(resulter['items']):
     track = item['name']
-    print(item)
+    #print(item)
     image = item['album']['images'][0].get('url')
-    print(image)
+    #print(image)
     artist = item['artists'][0]['name']
-    print(artist)
+    #print(artist)
     #song = track['name']
     #print(song)
     tracks[image] = artist + " - " + track
@@ -197,4 +203,4 @@ def index():
   return render_template("songs.html", data=data)
 
 
-#app.run(host='0.0.0.0', port=80)
+app.run(host='0.0.0.0', port=80)

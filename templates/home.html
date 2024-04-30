@@ -17,7 +17,7 @@
 <body>
     <div class="header">
         {% if session['token_info'] %}
-        <img src="https://th.bing.com/th/id/R.e6f94187bcb7e9373f1a0bbb2c67a101?rik=RP3QVieOAOL54g&riu=http%3a%2f%2fclipart-library.com%2fimages%2fAibKGkpbT.png&ehk=D6bm9s5pVkT2eKcVpyzGO72TJDirnXZ6fSP7M6LPM1c%3d&risl=&pid=ImgRaw&r=0">
+        <img src="{{image}}">
       <button class="btn2" onclick="window.location.href='/logout'">Logout</button>
       {% else %}
       <button class="btn" onclick="window.location.href='/verify'">Sign In</button>
