@@ -16,7 +16,7 @@ CLI_SEC = sid_sec
 REDIRECT_URI2 = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
 REDIRECT_URI = "https://testing-render-8isd.onrender.com/api_callback"
 
-SCOPE = 'user-read-recently-played, user-top-read'
+SCOPE = 'user-read-recently-played, user-top-read, user-read-currently-playing'
 
 # Set this to True for testing but you probaly want it set to False in production.
 SHOW_DIALOG = True
