@@ -161,7 +161,7 @@ def logout():
 @app.route("/current")
 def current():
   sp = spotipy.Spotify(auth=session.get('token_info').get('access_token'))
-  data = sp.currently_playing()
+  data = sp.current_user_playing_track()
   if data is not None:
     return data
   else:
