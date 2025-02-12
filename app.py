@@ -6,10 +6,9 @@ import spotipy
 from config import sid, sid_sec
 import time
 
-chatgpt = os.environ["CHATTOKEN"]
+
 app = Flask(__name__, static_folder="static")
 app.secret_key = "secret"
-openai.api_key = chatgpt
 CLI_ID = sid
 CLI_SEC = sid_sec
 # Make sure you add this to Redirect URIs in the setting of the application dashboard

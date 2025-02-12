@@ -2,3 +2,4 @@ Flask
 Gunicorn
 openai
 spotipy
+google-generativeai
