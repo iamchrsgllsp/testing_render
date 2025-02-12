@@ -162,10 +162,10 @@ def current():
 def getsongs():
     if request.method == "POST":
         print(request.json)
-        prompt = f"from this list of ranked songs with 1 being the highest rank and descending, recommend 9 other songs and 1 opposing style song: {request.json}. also recommend 1 movie, 1 game and 1 book that would have similar vibe to the songs, provide this list in a json response"
+        prompt = f"from this list of ranked songs with 1 being the highest rank and descending, recommend 9 other songs and 1 opposing style song: {request.json}. also recommend 1 movie, 1 game and 1 book that would have similar vibe to the songs"
         data = generate_with_gemini(prompt)
         print(data)
-        data = str(data)
+        data = str(data["text"])
         data = searcher(data)
 
         return {"data": data}  # You can return a string as an example response
