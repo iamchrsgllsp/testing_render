@@ -200,4 +200,4 @@ def most():
 def index():
     # data = resp()
 
-    return render_template("songs.html", data=data)
+    return render_template("songs.html", data="")

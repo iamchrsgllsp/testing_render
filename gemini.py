@@ -6,7 +6,7 @@ import os
 def generate_with_gemini(
     prompt: str,
     api_key: Optional[str] = None,
-    model: str = "gemini-1.5-flash",
+    model: str = "gemini-2.5-flash",
     temperature: float = 0.7,
     top_p: float = 0.9,
     max_tokens: int = 2048,
