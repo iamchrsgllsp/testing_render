@@ -12,7 +12,7 @@ app.secret_key = "secret"
 CLI_ID = sid
 CLI_SEC = sid_sec
 # Make sure you add this to Redirect URIs in the setting of the application dashboard
-REDIRECT_URI2 = "https://f68ef816-f7ea-4c45-b66a-0e9a8cf69a0e-00-hmrkn8piyx5b.worf.replit.dev:3000/api_callback"
+REDIRECT_URI2 = "http://127.0.0.1:3000/api_callback"
 REDIRECT_URI = "https://testing-render-8isd.onrender.com/api_callback"
 
 SCOPE = "user-read-recently-played, user-top-read, user-read-currently-playing"
